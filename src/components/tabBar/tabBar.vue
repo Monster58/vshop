@@ -14,7 +14,7 @@
     </router-link>
     <router-link to="/order" class="guide_item" :class="{on: 'order' === $route.name }">
       <span class="item_icon">
-        <i class="iconfont icon-dingdan"></i>
+        <i class="iconfont icon-order-s"></i>
       </span>
       <span>订单</span>
     </router-link>

@@ -3,7 +3,8 @@ import VueRouter from "vue-router";
 import Home from "../views/Home/Home.vue";
 import Order from '../views/Order/Order.vue'
 import Search from '../views/Search/Search.vue'
-import My from "../views/Home/Home.vue";
+import My from "../views/My/My.vue";
+import Login from '../views/Login/Login.vue'
 
 Vue.use(VueRouter);
 
@@ -31,6 +32,11 @@ const routes = [{
         name: "my",
         component: My
     },
+    {
+        path: "/login",
+        name: "login",
+        component: Login
+    }
 
 ];
 
