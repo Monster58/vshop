@@ -15,27 +15,42 @@ const routes = [{
     {
         path: "/home",
         name: "home",
-        component: Home
+        component: Home,
+        meta: {
+            showFooter: true
+        }
     },
     {
         path: "/search",
         name: "search",
-        component: Search
+        component: Search,
+        meta: {
+            showFooter: true
+        }
     },
     {
         path: "/order",
         name: "order",
-        component: Order
+        component: Order,
+        meta: {
+            showFooter: true
+        }
     },
     {
         path: "/my",
         name: "my",
-        component: My
+        component: My,
+        meta: {
+            showFooter: true
+        }
     },
     {
         path: "/login",
         name: "login",
-        component: Login
+        component: Login,
+        meta: {
+            showFooter: false
+        }
     }
 
 ];

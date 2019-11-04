@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer_guide border-1px">
+  <footer class="footer_guide border-1px" v-show="$route.meta.showFooter">
     <router-link to="/home" class="guide_item" :class="{on: 'home' === $route.name }">
       <span class="item_icon">
         <i class="iconfont icon-shouye"></i>
@@ -40,7 +40,7 @@ export default {
 .footer_guide { // footer
   top-border-1px(#e4e4e4);
   position: fixed;
-  z-index: 100;
+  z-index: 300;
   left: 0;
   right: 0;
   bottom: 0;

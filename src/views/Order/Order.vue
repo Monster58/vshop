@@ -1,5 +1,6 @@
 <template>
   <section class="order">
+    <HeaderTop title="订单"></HeaderTop>
     <section class="order_no_login">
       <img src="../../assets/images/order/person.png" />
       <h3>登录后查看外卖订单</h3>
@@ -9,12 +10,18 @@
 </template>
 
 <script>
-export default {};
+import HeaderTop from "@/components/HeaderTop/HeaderTop.vue";
+export default {
+  components: {
+    HeaderTop
+  }
+};
 </script>
 
 <style lang="stylus">
 &.order { // 订单
   width: 100%;
+  height:100vh;
 
   .order_no_login {
     padding-top: 140px;
