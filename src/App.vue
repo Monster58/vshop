@@ -1,15 +1,20 @@
 <template>
   <div id="app">
     <router-view />
-    <tabBar/>
+    <tabBar />
   </div>
 </template>
 
 <script>
 import tabBar from "./components/tabBar/tabBar.vue";
+import { reqFoodsTypes } from "./api";
 export default {
   components: {
     tabBar
+  },
+  async mounted() {
+    const res = await reqFoodsTypes()
+    console.log(res)
   }
 };
 </script>
@@ -20,6 +25,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  background-color #f5f5f5;
+  background-color: #f5f5f5;
 }
 </style>
