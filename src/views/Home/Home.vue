@@ -1,7 +1,7 @@
 <template>
   <div class="home msite">
     <!--首页头部-->
-    <HeaderTop title="昌平区北七家宏福科技园(337省道北)">
+    <HeaderTop :title="address.name">
       <span class="header_search" slot="left">
         <i class="iconfont icon-sousuo"></i>
       </span>
@@ -121,7 +121,7 @@
         <i class="iconfont icon-xuanxiang"></i>
         <span class="shop_header_title">附近商家</span>
       </div>
-      <ShopList/>
+      <ShopList />
     </div>
   </div>
 </template>
@@ -131,7 +131,8 @@
 import HeaderTop from "@/components/HeaderTop/HeaderTop.vue";
 import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
-import  ShopList from '@/components/ShopList/ShopList.vue'
+import ShopList from "@/components/ShopList/ShopList.vue";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -147,6 +148,11 @@ export default {
     swiper,
     swiperSlide,
     ShopList
+  },
+  computed: {
+    ...mapState([
+      'address'
+    ])
   }
 };
 </script>
