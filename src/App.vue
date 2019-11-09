@@ -7,21 +7,18 @@
 
 <script>
 import tabBar from "./components/tabBar/tabBar.vue";
-// import { reqFoodsTypes } from "./api";
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 export default {
   components: {
     tabBar
   },
-  // async mounted() {
-  //   const res = await reqFoodsTypes()
-  //   console.log(res)
-  // }
   mounted() {
-    this.getAddress()
+    this.getAddress();
+    this.getShops();
+    this.getCategorys();
   },
   methods: {
-    ...mapActions(['getAddress'])
+    ...mapActions(["getAddress", "getCategorys", "getShops"])
   }
 };
 </script>
