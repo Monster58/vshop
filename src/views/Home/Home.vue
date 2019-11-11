@@ -12,104 +12,12 @@
     <!--首页导航-->
     <nav class="msite_nav">
       <swiper :options="swiperOption">
-        <swiper-slide>
-          <a href="javascript:" class="link_to_food">
+        <swiper-slide v-for="(itemArr,i) in categorysArr" :key="i">
+          <a v-for="(item,i) in itemArr" :key="i" href="javascript:" class="link_to_food">
             <div class="food_container">
-              <img src="../../assets/images/nav/1.jpg" />
+              <img :src="baseNavImageUrl+item.image_url" />
             </div>
-            <span>甜品饮品</span>
-          </a>
-          <a href="javascript:" class="link_to_food">
-            <div class="food_container">
-              <img src="../../assets/images/nav/2.jpg" />
-            </div>
-            <span>商超便利</span>
-          </a>
-          <a href="javascript:" class="link_to_food">
-            <div class="food_container">
-              <img src="../../assets/images/nav/3.jpg" />
-            </div>
-            <span>美食</span>
-          </a>
-          <a href="javascript:" class="link_to_food">
-            <div class="food_container">
-              <img src="../../assets/images/nav/4.jpg" />
-            </div>
-            <span>简餐</span>
-          </a>
-          <a href="javascript:" class="link_to_food">
-            <div class="food_container">
-              <img src="../../assets/images/nav/5.jpg" />
-            </div>
-            <span>新店特惠</span>
-          </a>
-          <a href="javascript:" class="link_to_food">
-            <div class="food_container">
-              <img src="../../assets/images/nav/6.jpg" />
-            </div>
-            <span>准时达</span>
-          </a>
-          <a href="javascript:" class="link_to_food">
-            <div class="food_container">
-              <img src="../../assets/images/nav/7.jpg" />
-            </div>
-            <span>预订早餐</span>
-          </a>
-          <a href="javascript:" class="link_to_food">
-            <div class="food_container">
-              <img src="../../assets/images/nav/8.jpg" />
-            </div>
-            <span>土豪推荐</span>
-          </a>
-        </swiper-slide>
-        <swiper-slide>
-          <a href="javascript:" class="link_to_food">
-            <div class="food_container">
-              <img src="../../assets/images/nav/9.jpg" />
-            </div>
-            <span>甜品饮品</span>
-          </a>
-          <a href="javascript:" class="link_to_food">
-            <div class="food_container">
-              <img src="../../assets/images/nav/10.jpg" />
-            </div>
-            <span>商超便利</span>
-          </a>
-          <a href="javascript:" class="link_to_food">
-            <div class="food_container">
-              <img src="../../assets/images/nav/11.jpg" />
-            </div>
-            <span>美食</span>
-          </a>
-          <a href="javascript:" class="link_to_food">
-            <div class="food_container">
-              <img src="../../assets/images/nav/12.jpg" />
-            </div>
-            <span>简餐</span>
-          </a>
-          <a href="javascript:" class="link_to_food">
-            <div class="food_container">
-              <img src="../../assets/images/nav/13.jpg" />
-            </div>
-            <span>新店特惠</span>
-          </a>
-          <a href="javascript:" class="link_to_food">
-            <div class="food_container">
-              <img src="../../assets/images/nav/14.jpg" />
-            </div>
-            <span>准时达</span>
-          </a>
-          <a href="javascript:" class="link_to_food">
-            <div class="food_container">
-              <img src="../../assets/images/nav/1.jpg" />
-            </div>
-            <span>预订早餐</span>
-          </a>
-          <a href="javascript:" class="link_to_food">
-            <div class="food_container">
-              <img src="../../assets/images/nav/2.jpg" />
-            </div>
-            <span>土豪推荐</span>
+            <span>{{item.title}}</span>
           </a>
         </swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
@@ -140,7 +48,8 @@ export default {
         pagination: {
           el: ".swiper-pagination"
         }
-      }
+      },
+      baseNavImageUrl: "http://fuss10.elemecdn.com"
     };
   },
   components: {
@@ -150,9 +59,23 @@ export default {
     ShopList
   },
   computed: {
-    ...mapState([
-      'address'
-    ])
+    ...mapState(["address", "categorys"]),
+    categorysArr() {
+      let arr = [];
+      let arrItem = [];
+      let that = this;
+      this.categorys.forEach((item, i) => {
+        arrItem.push(item);
+        if (i == that.categorys.length - 1 && arrItem.length != 8) {
+          arr.push(arrItem);
+        }
+        if (arrItem.length == 8) {
+          arr.push(arrItem);
+          arrItem = [];
+        }
+      });
+      return arr;
+    }
   }
 };
 </script>
