@@ -1,6 +1,6 @@
 <template>
   <div class="shop_container">
-    <ul class="shop_list">
+    <ul class="shop_list" v-if="shops.length">
       <li v-for="(item,i) in shops" :key="i" class="shop_li border-1px">
         <a>
           <div class="shop_left">
@@ -16,11 +16,7 @@
             <section class="shop_rating_order">
               <section class="shop_rating_order_left">
                 <div class="star star-24">
-                  <span class="star-item on"></span>
-                  <span class="star-item on"></span>
-                  <span class="star-item on"></span>
-                  <span class="star-item half"></span>
-                  <span class="star-item off"></span>
+                  <van-rate v-model="item.rating" :size="10" readonly allow-half />
                 </div>
                 <div class="rating_section">{{item.rating}}</div>
                 <div class="order_section">月售{{item.rating_count}}单</div>
@@ -40,20 +36,38 @@
         </a>
       </li>
     </ul>
+    <ul v-else>
+      <li v-for="item in 5" :key="item">
+        <img src="../../assets/images/shop_back.svg" alt />
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import { mapActions } from "vuex";
+import { Rate } from "vant";
 export default {
-  data(){
+  data() {
     return {
-      baseImageUrl: 'http://cangdu.org:8001/img/',
-      defaultImage: 'this.src = "'+require('../../assets/images/timg.jpg') +'"'
-    }
+      baseImageUrl: "http://cangdu.org:8001/img/",
+      defaultImage:
+        'this.src = "' + require("../../assets/images/timg.jpg") + '"',
+      value: 5
+    };
+  },
+  components: {
+    [Rate.name]: Rate
   },
   computed: {
     ...mapState(["shops"])
+  },
+  methods: {
+    ...mapActions(["getShops"])
+  },
+  mounted() {
+    this.getShops();
   }
 };
 </script>

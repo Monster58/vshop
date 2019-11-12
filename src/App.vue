@@ -14,11 +14,10 @@ export default {
   },
   mounted() {
     this.getAddress();
-    this.getShops();
     this.getCategorys();
   },
   methods: {
-    ...mapActions(["getAddress", "getCategorys", "getShops"])
+    ...mapActions(["getAddress", "getCategorys"])
   }
 };
 </script>

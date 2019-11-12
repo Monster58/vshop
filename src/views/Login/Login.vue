@@ -2,28 +2,42 @@
   <section class="loginContainer">
     <div class="loginInner">
       <div class="login_header">
-        <h2 class="login_logo">硅谷外卖</h2>
+        <h2 class="login_logo">外卖APP</h2>
         <div class="login_header_title">
-          <a href="javascript:;" class="on">短信登录</a>
-          <a href="javascript:;">密码登录</a>
+          <a
+            href="javascript:;"
+            :class="{'on':switchClass}"
+            @click="switchClass = !switchClass"
+          >短信登录</a>
+          <a
+            href="javascript:;"
+            :class="{'on':!switchClass}"
+            @click="switchClass = !switchClass"
+          >密码登录</a>
         </div>
       </div>
       <div class="login_content">
         <form>
-          <div class="on">
+          <div :class="{'on':switchClass}">
             <section class="login_message">
-              <input type="tel" maxlength="11" placeholder="手机号" />
-              <button disabled="disabled" class="get_verification">获取验证码</button>
+              <input v-model="phoneNumber" type="tel" maxlength="11" placeholder="手机号" />
+              <button
+                ref="getPoneCodeButton"
+                disabled="disabled"
+                class="get_verification"
+                :class="{'abled':checkPhoneNumber}"
+                @click="getPhoneCode"
+              >获取验证码</button>
             </section>
             <section class="login_verification">
               <input type="tel" maxlength="8" placeholder="验证码" />
             </section>
             <section class="login_hint">
-              温馨提示：未注册硅谷外卖帐号的手机号，登录时将自动注册，且代表已同意
+              温馨提示：未注册外卖APP帐号的手机号，登录时将自动注册，且代表已同意
               <a href="javascript:;">《用户服务协议》</a>
             </section>
           </div>
-          <div>
+          <div :class="{'on':!switchClass}">
             <section>
               <section class="login_message">
                 <input type="tel" maxlength="11" placeholder="手机/邮箱/用户名" />
@@ -53,7 +67,29 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      switchClass: true,
+      phoneNumber: ""
+    };
+  },
+  methods: {
+    getPhoneCode(){
+      console.log('getPhoneCode')
+    }
+  },
+  computed: {
+    checkPhoneNumber() {
+      if (/^1\d{10}$/.test(this.phoneNumber)) {
+        this.$refs.getPoneCodeButton.removeAttribute("disabled");
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+};
 </script>
 
 <style lang="stylus">
@@ -137,6 +173,10 @@ export default {};
               color: #ccc;
               font-size: 14px;
               background: transparent;
+
+              &.abled {
+                color: #000;
+              }
             }
           }
 
