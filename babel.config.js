@@ -5,6 +5,6 @@ module.exports = {
             "libraryName": "vant",
             "libraryDirectory": "es",
             "style": true
-        }]
+        }, 'vant']
     ]
 };
