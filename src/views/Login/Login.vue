@@ -79,6 +79,7 @@ import {
   reqCodeLoing,
   reqPwdLogin
 } from "@/api/index.js";
+import { mapActions } from 'vuex'
 export default {
   data() {
     return {
@@ -99,6 +100,9 @@ export default {
     });
   },
   methods: {
+    ...mapActions([
+      'saveUserInfo', // 将 `this.saveUserInfo()` 映射为 `this.$store.dispatch('saveUserInfo')`
+    ]),
     updataCaptcha() {
       reqCaptcha().then(res => {
         this.captchaSvg = res;
@@ -143,7 +147,7 @@ export default {
           Toast.fail("请输入验证码");
           return;
         }
-        result = await reqCodeLoing({phoneNumber, verification});
+        result = await reqCodeLoing({ phoneNumber, verification });
       } else {
         //账号密码登录
         const { accountNum, pwd, captcha } = this;
@@ -157,12 +161,20 @@ export default {
           Toast.fail("请输入图形验证码");
           return;
         }
-        result = await reqPwdLogin({accountNum, pwd,captcha});
+        result = await reqPwdLogin({ accountNum, pwd, captcha });
       }
-      if(result.code == 0) {
+      if (result.code == 0) {
         Toast.success("登录成功");
+        const userInfo = result.data;
+        console.log("用户信息", userInfo);
+        //将个人信息存储到vux中，跳转个人中心页面
+        this.$store.dispatch('saveUserInfo',userInfo)
+        this.$router.replace("/my");
+      } else if(result.msg = '验证码不正确'){
+        Toast.fail(`${result.msg}`);
+        this.updataCaptcha()
       } else {
-         Toast.fail(`${result.msg}`);
+        Toast.fail(`${result.msg}`);
       }
     }
   },
