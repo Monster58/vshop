@@ -2,7 +2,7 @@
   <div class="shop_container">
     <ul class="shop_list" v-if="shops.length">
       <li v-for="(item,i) in shops" :key="i" class="shop_li border-1px">
-        <a>
+        <router-link to="/shop">
           <div class="shop_left">
             <img class="shop_img" :src="baseImageUrl + item.image_path" :onerror="defaultImage" />
           </div>
@@ -33,7 +33,7 @@
               </p>
             </section>
           </div>
-        </a>
+        </router-link>
       </li>
     </ul>
     <ul v-else>

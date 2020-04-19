@@ -94,6 +94,9 @@
         </div>
       </a>
     </section>
+    <div class="logout" v-if="userInfo._id">
+      <van-button @click="logOut" type="warning" size="large">退出登录</van-button>
+    </div>
   </section>
 </template>
 
@@ -106,6 +109,23 @@ export default {
   },
   computed: {
      ...mapState(['userInfo'])
+  },
+  methods: {
+    logOut(){
+      this.$dialog.confirm({
+        title: '退出登录',
+        message: '确认执行此操作吗？',
+        beforeClose: (action, done) => {
+          if (action === 'confirm') {
+            this.$store.dispatch('reqLogOut').then(() => {
+              done()
+            });
+          } else {
+            done();
+          }
+        },
+      }).catch(()=>{});
+    },
   }
 };
 </script>
@@ -313,5 +333,10 @@ export default {
       }
     }
   }
+}
+
+.logout {
+  width: 98%;
+  margin: 1rem auto;
 }
 </style>

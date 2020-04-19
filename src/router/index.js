@@ -5,6 +5,11 @@ import Order from '../views/Order/Order.vue'
 import Search from '../views/Search/Search.vue'
 import My from "../views/My/My.vue";
 import Login from '../views/Login/Login.vue'
+import Shop from '@v/Shop/Shop.vue'
+import ShopGoods from '@v/Shop/ShopGoods/ShopGoods.vue'
+import ShopRating from '@v/Shop/ShopRating/ShopRating.vue'
+import ShopInfo from '@v/Shop/ShopInfo/ShopInfo.vue'
+
 
 Vue.use(VueRouter);
 
@@ -51,6 +56,31 @@ const routes = [{
         meta: {
             showFooter: false
         }
+    },
+    {
+        path: "/Shop",
+        name: "Shop",
+        component: Shop,
+        children: [{
+                path: "",
+                redirect: "/Shop/Goods"
+            },
+            {
+                path: "/Shop/Goods",
+                name: "ShopGoods",
+                component: ShopGoods,
+            },
+            {
+                path: "/Shop/Rating",
+                name: "ShopRating",
+                component: ShopRating,
+            },
+            {
+                path: "/Shop/Info",
+                name: "ShopInfo",
+                component: ShopInfo,
+            }
+        ]
     }
 
 ];

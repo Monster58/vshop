@@ -15,9 +15,10 @@ export default {
   mounted() {
     this.getAddress();
     this.getCategorys();
+    this.reqGetUserInfo();
   },
   methods: {
-    ...mapActions(["getAddress", "getCategorys"])
+    ...mapActions(["getAddress", "getCategorys","reqGetUserInfo"])
   }
 };
 </script>

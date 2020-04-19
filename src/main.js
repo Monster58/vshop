@@ -3,7 +3,16 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
-import './assets/css/reset.css'
+import './assets/css/reset.css';
+
+import { Dialog, Button } from 'vant';
+
+// 全局注册
+Vue.use(Dialog);
+Vue.use(Button);
+
+// mock数据
+import './mock/mock'
 
 Vue.config.productionTip = false;
 

@@ -5,9 +5,13 @@ import {
     RECEIVE_ADDRESS,
     RECEIVE_CATEGORYS,
     RECEIVE_SHOPS,
-    RECEIVE_USERINFO
+    RECEIVE_USERINFO,
+    RESERT_USERINFO,
+    RECEIVE_INFO,
+    RECEIVE_GOODS,
+    RECEIVE_RATING
 } from "./mutation-types";
-import { reqAdress, reqFoodsTypes, reqShops } from "../api/index";
+import { reqAdress, reqFoodsTypes, reqShops, reqGetUserInfo, reqLogOut, reqInfo, reqGoods, reqLoRating } from "../api/index";
 
 export default {
     //异步获取地址
@@ -42,5 +46,40 @@ export default {
     //储存用户信息
     saveUserInfo({ commit }, userInfo) {
         commit(RECEIVE_USERINFO, { userInfo })
-    }
+    },
+    //获取用户信息
+    async reqGetUserInfo({ commit }) {
+        const result = await reqGetUserInfo();
+        if (result.code == 0) {
+            const userInfo = result.data;
+            commit(RECEIVE_USERINFO, { userInfo })
+        }
+    },
+    async reqLogOut({ commit }) {
+        const result = await reqLogOut();
+        if (result.code == 0) {
+            commit(RESERT_USERINFO)
+        }
+    },
+    async reqShopInfo({ commit }) {
+        const result = await reqInfo();
+        if (result.code == 0) {
+            const info = result.data
+            commit(RECEIVE_INFO, { info })
+        }
+    },
+    async reqShopGoods({ commit }) {
+        const result = await reqGoods();
+        if (result.code == 0) {
+            const goods = result.data
+            commit(RECEIVE_GOODS, { goods })
+        }
+    },
+    async reqShopRatings({ commit }) {
+        const result = await reqRating();
+        if (result.code == 0) {
+            const rating = result.data
+            commit(RECEIVE_RATING, { rating })
+        }
+    },
 };

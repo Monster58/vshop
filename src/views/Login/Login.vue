@@ -166,7 +166,6 @@ export default {
       if (result.code == 0) {
         Toast.success("登录成功");
         const userInfo = result.data;
-        console.log("用户信息", userInfo);
         //将个人信息存储到vux中，跳转个人中心页面
         this.$store.dispatch('saveUserInfo',userInfo)
         this.$router.replace("/my");
