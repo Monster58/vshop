@@ -68,11 +68,12 @@ export default {
             commit(RECEIVE_INFO, { info })
         }
     },
-    async reqShopGoods({ commit }) {
+    async reqShopGoods({ commit }, callback) {
         const result = await reqGoods();
         if (result.code == 0) {
             const goods = result.data
             commit(RECEIVE_GOODS, { goods })
+            callback && callback()
         }
     },
     async reqShopRatings({ commit }) {
