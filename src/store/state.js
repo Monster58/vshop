@@ -11,4 +11,5 @@ export default {
     info: {}, //店铺信息
     goods: {}, //商品列表
     rating: {}, //评价
+    shopCart: [] //购物车
 }

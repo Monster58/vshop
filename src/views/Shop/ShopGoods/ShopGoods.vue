@@ -26,6 +26,7 @@
                 class="food-item bottom-border-1px"
                 v-for="(good,index) in goodItem.foods"
                 :key="index"
+                @click="showFood(good)"
               >
                 <div class="icon">
                   <img width="57" height="57" :src="good.icon" />
@@ -41,7 +42,9 @@
                     <span class="now">￥{{good.price}}</span>
                     <span class="old" v-if="good.oldPrice">￥{{good.oldPrice}}</span>
                   </div>
-                  <div class="cartcontrol-wrapper">CartControl</div>
+                  <div class="cartcontrol-wrapper">
+                    <CartControl :good="good"></CartControl>
+                    </div>
                 </div>
               </li>
             </ul>
@@ -49,18 +52,29 @@
         </ul>
       </div>
     </div>
+    <ShopCart />
+    <Food ref="food" :food="food"></Food>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import BScroll from "better-scroll";
+import CartControl from "@c/CartControl/CartControl";
+import Food from "@c/Food/Food";
+import ShopCart from "@c/ShopCart/ShopCart";
 export default {
   data() {
     return {
       tops: [],
-      scrollY: 0
+      scrollY: 0,
+      food: {}
     };
+  },
+  components: {
+    CartControl,
+    Food,
+    ShopCart
   },
   mounted() {
     this.$store.dispatch("reqShopGoods", () => {
@@ -105,7 +119,11 @@ export default {
     },
     scrollTarget(index) {
       console.log(this.tops[index]);
-      this.rightScroll.scrollTo(0, -this.tops[index], 1000)
+      this.rightScroll.scrollTo(0, -this.tops[index], 1000);
+    },
+    showFood(food){
+      this.food = food
+      this.$refs.food.toggleShow()
     }
   }
 };

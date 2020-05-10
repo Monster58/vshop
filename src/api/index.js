@@ -30,4 +30,4 @@ export const reqInfo = () => ajax('/info')
     // 10、请求店铺商品
 export const reqGoods = () => ajax('/goods')
     // 10、请求店铺评价
-export const reqRating = () => ajax('/rating')
+export const reqRating = () => ajax(`/rating`)

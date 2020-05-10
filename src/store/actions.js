@@ -9,9 +9,11 @@ import {
     RESERT_USERINFO,
     RECEIVE_INFO,
     RECEIVE_GOODS,
-    RECEIVE_RATING
+    RECEIVE_RATING,
+    INCREMENT_GOOD_COUNT,
+    DECREMENT_GOOD_COUNT
 } from "./mutation-types";
-import { reqAdress, reqFoodsTypes, reqShops, reqGetUserInfo, reqLogOut, reqInfo, reqGoods, reqLoRating } from "../api/index";
+import { reqAdress, reqFoodsTypes, reqShops, reqGetUserInfo, reqLogOut, reqInfo, reqGoods, reqRating } from "../api/index";
 
 export default {
     //异步获取地址
@@ -76,11 +78,20 @@ export default {
             callback && callback()
         }
     },
-    async reqShopRatings({ commit }) {
+    async reqShopRatings({ commit }, callback) {
         const result = await reqRating();
         if (result.code == 0) {
             const rating = result.data
             commit(RECEIVE_RATING, { rating })
+            callback()
+        }
+    },
+    //同步更新goods
+    updataGoodsCount({ commit }, { good, isAdd }) {
+        if (isAdd) {
+            commit(INCREMENT_GOOD_COUNT, { good })
+        } else {
+            commit(DECREMENT_GOOD_COUNT, { good })
         }
     },
 };

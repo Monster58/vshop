@@ -1,8 +1,8 @@
 <template>
   <div class="shop-header">
     <nav class="shop-nav" :style="{backgroundImage: `url(${info.bgImg})`}">
-      <a class="back">
-        <i class="iconfont icon-arrow_left"></i>
+      <a class="back" @click="$router.go(-1);">
+        <svg t="1589108628357" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2171" width="200" height="200"><path d="M627.479 283.894H451.324V137.536l-385.13 196.73 385.13 196.68V384.639H641.56c150.323 0 225.485 64.75 225.485 194.3 0 134.36-77.542 199.111-234.856 199.111H190.636v103.174h448.592c211.356 0 319.389-98.365 319.389-292.666 0-203.919-110.362-304.664-331.138-304.664z" p-id="2172" fill="#e6e6e6"></path></svg>
       </a>
     </nav>
     <div class="shop-content">
@@ -147,14 +147,16 @@ export default {
 
     .back {
       position: absolute;
+      display block
       top: 10px;
-      left: 0;
-
-      .icon-arrow_left {
-        display: block;
-        padding: 5px;
-        font-size: 20px;
-        color: #fff;
+      left: 10px;
+      width 30px
+      height 30px
+      color: #fff
+      box-sizing border-box
+      svg {
+        width 100%
+        height 100%
       }
     }
   }
