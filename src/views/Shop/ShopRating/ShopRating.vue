@@ -27,15 +27,15 @@
       <div class="split"></div>
       <div class="ratingselect">
         <div class="rating-type border-1px">
-          <span class="block positive active">
+          <span class="block positive" :class="{active: this.selectRatingType === 2}" @click="toggleSelectRatingType(1)">
             全部
             <span class="count">{{this.rating.length}}</span>
           </span>
-          <span class="block positive">
+          <span class="block positive" :class="{active: this.selectRatingType === 0}" @click="toggleSelectRatingType(0)">
             满意
             <span class="count">{{satisfiedRating}}</span>
           </span>
-          <span class="block negative">
+          <span class="block negative" :class="{active: this.selectRatingType === 1}" @click="toggleSelectRatingType(2)">
             不满意
             <span class="count">{{noSatisfiedRating}}</span>
           </span>
@@ -47,7 +47,7 @@
       </div>
       <div class="rating-wrapper">
         <ul>
-          <li class="rating-item" v-for="(item,index) in rating" :key="index">
+          <li class="rating-item" v-for="(item,index) in filterRating" :key="index">
             <div class="avatar">
               <img width="28" height="28" :src="item.avatar" />
             </div>
@@ -81,12 +81,17 @@
 <script>
 import BScroll from "better-scroll";
 import Star from "@c/Star/Star";
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 export default {
+  data(){
+    return {
+      selectRatingType: 2
+    }
+  },
   mounted() {
     this.$store.dispatch("reqShopRatings", () => {
       this.$nextTick(() => {
-        let scroll = new BScroll(".rating-wrapper", {
+        new BScroll(".rating-wrapper", {
           scrollY: true,
           click: true
         });
@@ -96,25 +101,27 @@ export default {
   components: {
     Star
   },
+  watch: {
+    rating: (val, oldVal) => {
+      console.log(val, oldVal)
+    }
+  },
   computed: {
     ...mapState(["info", "rating"]),
-    satisfiedRating(){
-      let num = 0
-      this.rating.forEach(item => {
-        if(item.rateType == 0) {
-          num ++
-        }
+    ...mapGetters(['satisfiedRating', 'noSatisfiedRating']),
+    filterRating(){
+      if(this.selectRatingType == 2) {
+        // console.log()
+        return this.rating
+      }
+      return this.rating.filter(item => {
+        item.rateType ==  this.selectRatingType
       })
-      return num
-    },
-    noSatisfiedRating(){
-      let num = 0
-      this.rating.forEach(item => {
-        if(item.rateType != 0) {
-          num ++
-        }
-      })
-      return num
+    }
+  },
+  methods: {
+    toggleSelectRatingType(type) {
+      this.selectRatingType = type
     }
   }
 };
@@ -126,6 +133,7 @@ export default {
   flex-direction: column;
   height: 100%;
 }
+
 // @import '../../../common/stylus/mixins.styl';
 .ratings {
   position: absolute;
@@ -135,6 +143,7 @@ export default {
   width: 100%;
   overflow: hidden;
   background: #fff;
+
   .overview {
     display: flex;
     padding: 18px 0;
@@ -292,8 +301,9 @@ export default {
 
   .rating-wrapper {
     padding: 0 18px;
-    overflow hidden
-    flex 1
+    overflow: hidden;
+    flex: 1;
+
     .rating-item {
       display: flex;
       padding: 18px 0;
