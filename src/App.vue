@@ -11,7 +11,7 @@ import { mapActions } from "vuex";
 export default {
   components: {
     tabBar
-  }, 
+  },
   mounted() {
     this.getAddress();
     this.getCategorys();
