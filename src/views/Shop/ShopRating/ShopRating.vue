@@ -27,7 +27,7 @@
       <div class="split"></div>
       <div class="ratingselect">
         <div class="rating-type border-1px">
-          <span class="block positive" :class="{active: this.selectRatingType === 2}" @click="toggleSelectRatingType(1)">
+          <span class="block positive" :class="{active: this.selectRatingType === 2}" @click="toggleSelectRatingType(2)">
             全部
             <span class="count">{{this.rating.length}}</span>
           </span>
@@ -35,7 +35,7 @@
             满意
             <span class="count">{{satisfiedRating}}</span>
           </span>
-          <span class="block negative" :class="{active: this.selectRatingType === 1}" @click="toggleSelectRatingType(2)">
+          <span class="block negative" :class="{active: this.selectRatingType === 1}" @click="toggleSelectRatingType(1)">
             不满意
             <span class="count">{{noSatisfiedRating}}</span>
           </span>
@@ -114,8 +114,12 @@ export default {
         // console.log()
         return this.rating
       }
+      // console.log(this.selectRatingType)
+      // this.rating.forEach(item => {
+      //   console.log(item.rateType == this.selectRatingType)
+      // })
       return this.rating.filter(item => {
-        item.rateType ==  this.selectRatingType
+        return item.rateType ==  this.selectRatingType
       })
     }
   },
