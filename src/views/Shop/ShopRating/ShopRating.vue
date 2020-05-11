@@ -29,18 +29,18 @@
         <div class="rating-type border-1px">
           <span class="block positive active">
             全部
-            <span class="count">30</span>
+            <span class="count">{{this.rating.length}}</span>
           </span>
           <span class="block positive">
             满意
-            <span class="count">28</span>
+            <span class="count">{{satisfiedRating}}</span>
           </span>
           <span class="block negative">
             不满意
-            <span class="count">2</span>
+            <span class="count">{{noSatisfiedRating}}</span>
           </span>
         </div>
-        <div class="switch on">
+        <div class="switch on" style="display:none;">
           <span class="iconfont icon-check_circle"></span>
           <span class="text">只看有内容的评价</span>
         </div>
@@ -97,12 +97,35 @@ export default {
     Star
   },
   computed: {
-    ...mapState(["info", "rating"])
+    ...mapState(["info", "rating"]),
+    satisfiedRating(){
+      let num = 0
+      this.rating.forEach(item => {
+        if(item.rateType == 0) {
+          num ++
+        }
+      })
+      return num
+    },
+    noSatisfiedRating(){
+      let num = 0
+      this.rating.forEach(item => {
+        if(item.rateType != 0) {
+          num ++
+        }
+      })
+      return num
+    }
   }
 };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+.ratings-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 // @import '../../../common/stylus/mixins.styl';
 .ratings {
   position: absolute;
@@ -112,7 +135,6 @@ export default {
   width: 100%;
   overflow: hidden;
   background: #fff;
-
   .overview {
     display: flex;
     padding: 18px 0;
@@ -270,8 +292,8 @@ export default {
 
   .rating-wrapper {
     padding: 0 18px;
-    height 300px
     overflow hidden
+    flex 1
     .rating-item {
       display: flex;
       padding: 18px 0;

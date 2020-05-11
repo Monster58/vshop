@@ -67,7 +67,8 @@ import { mapState, mapGetters, mapMutations } from "vuex";
 export default {
   data() {
     return {
-      isShow: false
+      isShow: false,
+      scroll: ""
     };
   },
   computed: {
@@ -86,13 +87,15 @@ export default {
         this.isShow = !this.isShow;
         if (!this.scroll) {
           this.$nextTick(() => {
-						this.scroll = new BScroll(".list-content", {
-            click: true
+            this.scroll = new BScroll(".list-content", {
+              click: true
+            });
           });
-					})
         } else {
-					this.scroll.refresh()
-				}
+          this.$nextTick(() => {
+            this.scroll.refresh();
+          });
+        }
       }
     },
     closeToggleShopcartList(val, old) {
