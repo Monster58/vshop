@@ -4,7 +4,7 @@
       <li v-for="(item,i) in shops" :key="i" class="shop_li border-1px">
         <router-link to="/shop">
           <div class="shop_left">
-            <img class="shop_img" :src="baseImageUrl + item.image_path" :onerror="defaultImage" />
+            <img class="shop_img" v-lazy="baseImageUrl + item.image_path" :onerror="defaultImage" />
           </div>
           <div class="shop_right">
             <section class="shop_detail_header">

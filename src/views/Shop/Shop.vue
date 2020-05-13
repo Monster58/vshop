@@ -13,7 +13,9 @@
       </div>
     </div>
     <transition name="move" mode="out-in">
-      <router-view></router-view>
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
     </transition>
   </div>
 </template>
@@ -30,11 +32,15 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../common/stylus/mixins.styl';
 
-.move-enter-active, .move-leave-active
-  transition all .3s ease
-.move-enter, .move-leave-to
+.move-enter-active, .move-leave-active {
+  transition: all 0.3s ease;
+}
+
+.move-enter, .move-leave-to {
   // transform translateX(-100vw)
-  opacity 0
+  opacity: 0;
+}
+
 .tab {
   height: 40px;
   line-height: 40px;

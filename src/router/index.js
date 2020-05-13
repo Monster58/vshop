@@ -1,9 +1,20 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home/Home.vue";
-import Order from '../views/Order/Order.vue'
-import Search from '../views/Search/Search.vue'
-import My from "../views/My/My.vue";
+// import Home from "../views/Home/Home.vue";
+// import Order from '../views/Order/Order.vue'
+// import Search from '../views/Search/Search.vue'
+// import My from "../views/My/My.vue";
+
+// 使用函数方式实现路由懒加载，只有在用到该组件的时候才会执行这个函数（一般用在顶级组件上）
+const Home = () =>
+    import ("../views/Home/Home.vue")
+const Order = () =>
+    import ("../views/Order/Order.vue")
+const Search = () =>
+    import ("../views/Search/Search.vue")
+const My = () =>
+    import ("../views/My/My.vue")
+
 import Login from '../views/Login/Login.vue'
 import Shop from '@v/Shop/Shop.vue'
 import ShopGoods from '@v/Shop/ShopGoods/ShopGoods.vue'

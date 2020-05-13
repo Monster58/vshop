@@ -69,7 +69,7 @@
                   class="item"
                 >{{tagItem}}</span>
               </div>
-              <div class="time">{{item.rateTime}}</div>
+              <div class="time">{{item.rateTime | dateFormat}}</div>
             </div>
           </li>
         </ul>
